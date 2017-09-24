@@ -2,7 +2,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class NumberOfPlayers extends JFrame implements ActionListener
+public class test extends JFrame implements ActionListener
 {
     public JPanel Players = new JPanel(new FlowLayout());
     public int number = 0;
@@ -12,7 +12,7 @@ public class NumberOfPlayers extends JFrame implements ActionListener
     JButton p2 = new JButton("4");
     JButton p3 = new JButton("5");
     JButton p4 = new JButton("BEGIN");
-    public NumberOfPlayers()
+    public void NumberOfPlayers()
     {
         JLabel display = new JLabel(" Welcome To Mineral SuperTrumps");
         JLabel d2 = new JLabel(" Select Number of Player ( 3 to 5)");
