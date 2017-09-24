@@ -2,7 +2,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class CardDisplay extends JFrame implements ActionListener
+public class NumberOfPlayers extends JFrame implements ActionListener
 {
     public JPanel Players = new JPanel(new FlowLayout());
     public int number = 0;
@@ -12,7 +12,7 @@ public class CardDisplay extends JFrame implements ActionListener
     JButton p2 = new JButton("4");
     JButton p3 = new JButton("5");
     JButton p4 = new JButton("BEGIN");
-    public CardDisplay()
+    public NumberOfPlayers()
     {
         JLabel display = new JLabel(" Welcome To Mineral SuperTrumps");
         JLabel d2 = new JLabel(" Select Number of Player ( 3 to 5)");
@@ -51,12 +51,7 @@ public class CardDisplay extends JFrame implements ActionListener
             d3.setText(" Total Number of Player : 5");
             number = 5;
         }
-        
-        else
-        {
-            d3.setText("Invalid Entry");
-        }
-        if(number>2)
+        else if(number>2)
         {
             if(e.getActionCommand() == p4.getText())
             {
@@ -68,6 +63,10 @@ public class CardDisplay extends JFrame implements ActionListener
                 p4.setEnabled(false);
             }
         }
+        else
+        {
+            d3.setText("Please select the number of players");
+        }
     }
     public int getCount()
     {
@@ -76,9 +75,9 @@ public class CardDisplay extends JFrame implements ActionListener
     }
     public static void main(String[] args)
     {
-        CardDisplay carddisplay = new CardDisplay();
-        carddisplay.setSize(1000,1000);
-        carddisplay.setVisible(true);
+        NumberOfPlayers numberOfPlayers = new NumberOfPlayers();
+        numberOfPlayers.setSize(1000,1000);
+        numberOfPlayers.setVisible(true);
         
     }
 
