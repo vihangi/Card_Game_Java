@@ -2,11 +2,12 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Game extends JFrame implements ActionListener
+public class GetPlayers extends JFrame implements ActionListener
 {
     public JPanel Players = new JPanel(new FlowLayout());
+    public getCards getCard = new getCards();
     //public JPanel Information = new JPanel(new FlowLayout());
-    public int number = 0;
+    public int number;
     public int count = 0 ;
     JLabel d3 = new JLabel ("");
     JButton p1 = new JButton("3");
@@ -14,7 +15,7 @@ public class Game extends JFrame implements ActionListener
     JButton p3 = new JButton("5");
     JButton p4 = new JButton("BEGIN");
     JLabel infoLabel = new JLabel("");
-    public Game()
+    public GetPlayers()
     {
         JLabel display = new JLabel(" Welcome To Mineral SuperTrumps");
         JLabel d2 = new JLabel(" Select Number of Player ( 3 to 5)");
@@ -28,7 +29,7 @@ public class Game extends JFrame implements ActionListener
         Players.add(p3);
         Players.add(d3);
         Players.add(p4);
-       
+       // Information.add(infoLabel);
         p1.addActionListener(this);
         p2.addActionListener(this);
         p3.addActionListener(this);
@@ -66,6 +67,7 @@ public class Game extends JFrame implements ActionListener
                 p2.setEnabled(false);
                 p3.setEnabled(false);
                 p4.setEnabled(false);
+                getCount();
             }
         }
         else
@@ -75,16 +77,17 @@ public class Game extends JFrame implements ActionListener
     }
     public int getCount()
     {
-        
+        //System.out.println(number);
+        getCard.getCards(number);
         return number;
     }
     public static void main(String[] args)
     {
-        Game numberOfPlayers = new Game();
+        GetPlayers numberOfPlayers = new GetPlayers();
         numberOfPlayers.setSize(1000,1000);
         numberOfPlayers.setVisible(true);
         
     }
-
+    
     
 }
