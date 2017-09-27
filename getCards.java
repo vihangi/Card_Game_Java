@@ -10,16 +10,19 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class getCards extends JFrame// implements ActionListener
+public class getCards extends JFrame implements ActionListener
 {
+    //public GetPlayers get = new GetPlayers(); 
     public JLabel cardweight = new JLabel("card weight");
     public JButton[][] cards ;
+    public int cardsadded = 0;
     public int round = 1;
     public ImageIcon[][] image;
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
     public JLabel cardadd = new JLabel("Cards Added :");
     public JButton deck1 = new JButton(" Pass ");
+    public JButton Next = new JButton(" NEXT ");
     public int totalPlayers = 0;
     public int totalskip , skip, nameP = 0;
    
@@ -56,6 +59,7 @@ public class getCards extends JFrame// implements ActionListener
        // num = 3;
         System.out.println("p " + num);
         totalPlayers = num ;
+        System.out.println("p2 " + totalPlayers);
         int i=1;
         int j= 0;
         try(BufferedReader br = new BufferedReader(new FileReader("card.txt")))
@@ -178,26 +182,19 @@ public class getCards extends JFrame// implements ActionListener
             System.out.println("IO Error" + exc);
         }
         
-            
-        
-                    
-                    
-        
-       
-        
-        
         }
-    public getCards()
+    public  getCards(int totalPlayers)
     {
-         
+    
         
-         
         // JLabel temp = new JLabel("" + totalPlayers);
-         getCard(totalPlayers);
+        
+        
+          getCard(totalPlayers);
          //System.out.println(totalPlayers);
-         System.out.println(player1Image);
-         
-         Game.setLayout(new GridLayout(5,15));
+         System.out.println(player2Image);
+         System.out.println("Test" + totalPlayers);
+         Game.setLayout(new GridLayout(3,8));
          setContentPane(Game);
         // Game.add(temp);
          Game.add(playerNumber);
@@ -205,6 +202,7 @@ public class getCards extends JFrame// implements ActionListener
          Game.add(roundNumber);
          Game.add(cardadd);
          Game.add(deck1);
+         deck1.addActionListener(this);
          setVisible(true);
          
          cards = new JButton[5][15];
@@ -227,6 +225,7 @@ public class getCards extends JFrame// implements ActionListener
             
              
              cards[0][i] = new JButton(image[0][i]);
+             cards[0][i].addActionListener(this);
              Game.add(cards[0][i]);
              setSize(600,600);
              //nameP ++;
@@ -235,18 +234,19 @@ public class getCards extends JFrame// implements ActionListener
         else if(nameP == 2)
         {
             playerNumber.setText(" Player Number " + nameP);
-            for(int i=0 ; i<player2.size(); i++)
-         {
-             image[1][i] = new ImageIcon(player2Image.get(i));
-             Image image1 = image[1][i].getImage();
-             Image newing = image1.getScaledInstance(270,300,java.awt.Image.SCALE_SMOOTH);
-             image[1][i] =new ImageIcon(newing);
-            
-             
-             cards[1][i] = new JButton(image[0][i]);
-             Game.add(cards[1][i]);
-             setSize(600,600);
-            }
+                for(int i=0 ; i<player2.size(); i++)
+             {
+                 image[1][i] = new ImageIcon(player2Image.get(i));
+                 Image image1 = image[1][i].getImage();
+                 Image newing = image1.getScaledInstance(270,300,java.awt.Image.SCALE_SMOOTH);
+                 image[1][i] =new ImageIcon(newing);
+                
+                 
+                 cards[1][i] = new JButton(image[0][i]);
+                 cards[1][i].addActionListener(this);
+                 Game.add(cards[1][i]);
+                 setSize(600,600);
+                }
         }
          else if(nameP == 3)
         {
@@ -260,6 +260,7 @@ public class getCards extends JFrame// implements ActionListener
             
              
              cards[2][i] = new JButton(image[0][i]);
+             cards[2][i].addActionListener(this);
              Game.add(cards[2][i]);
              setSize(600,600);
             }
@@ -276,6 +277,7 @@ public class getCards extends JFrame// implements ActionListener
             
              
              cards[3][i] = new JButton(image[0][i]);
+             cards[3][i].addActionListener(this);
              Game.add(cards[3][i]);
              setSize(600,600);
             }
@@ -287,11 +289,11 @@ public class getCards extends JFrame// implements ActionListener
          {
              image[4][i] = new ImageIcon(player5Image.get(i));
              Image image1 = image[4][i].getImage();
-             Image newing = image1.getScaledInstance(270,300,java.awt.Image.SCALE_SMOOTH);
+            Image newing = image1.getScaledInstance(270,300,java.awt.Image.SCALE_SMOOTH);
              image[4][i] =new ImageIcon(newing);
-            
-             
+           
              cards[4][i] = new JButton(image[0][i]);
+             cards[4][i].addActionListener(this);
              Game.add(cards[4][i]);
              setSize(600,600);
             }
@@ -300,18 +302,89 @@ public class getCards extends JFrame// implements ActionListener
         {
             System.out.println("Invalid");
         }
-         validate();
+        Game.add(Next); 
+        validate();
+        //break;
+        
+    
+  
+    }
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getActionCommand() == deck1.getText())
+        {
+            deck1.setText("Adding Card");
+            deck1.setEnabled(false);
+            cardsadded++;
+            cardadd.setText("Cards added : " + cardsadded);
+            getpass(nameP);
+            
+            
+        }
+       
+        
         
     }
-    
-    public static void main()
+    public void getpass(int playerno)
+    {
+        //System.out.println("Entered");
+        if(playerno == 1)
+        {
+            
+            //System.out.println("Entered player 1");
+            
+            String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
+            int num1= Integer.parseInt(s);
+            player1Image.add(ImageCard[num1]);
+            player1.add(deck.get(0));
+            deck.remove(0);
+            
+            //System.out.println(deck.size());
+        }
+        else if(playerno == 2)
+        {
+            String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
+            int num1= Integer.parseInt(s);
+            player2Image.add(ImageCard[num1]);
+            player2.add(deck.get(0));
+            deck.remove(0);
+            
+        }
+        else if(playerno == 3)
+        {
+            String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
+            int num1= Integer.parseInt(s);
+            player3Image.add(ImageCard[num1]);
+            player3.add(deck.get(0));
+            deck.remove(0);
+            
+        }
+        else if(playerno == 4)
+        {
+            String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
+            int num1= Integer.parseInt(s);
+            player4Image.add(ImageCard[num1]);
+            player4.add(deck.get(0));
+            deck.remove(0);
+        }
+        else if(playerno == 5)
+        {
+            String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
+            int num1= Integer.parseInt(s);
+            player5Image.add(ImageCard[num1]);
+            player5.add(deck.get(0));
+            deck.remove(0);
+        }
+        
+    }
+    public  void main()
     {
     
-       
- 
-         getCards display = new getCards();
+         
+         getCards display = new getCards(0);
          display.setSize(1250,6000);
-        
+         
          display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          
          

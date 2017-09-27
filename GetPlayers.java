@@ -68,16 +68,18 @@ public class GetPlayers extends JFrame implements ActionListener
                 p3.setEnabled(false);
                 p4.setEnabled(false);
                 
-                getCards app = new getCards();
+                getCards app = new getCards(getCount());
                 
-                app.getCard(getCount());
+                //app.getCard(getCount());
             }
         }
         else
         {
             d3.setText("Please select the number of players");
         }
+        validate();
     }
+    
     public int getCount()
     {
         //System.out.println(number);
