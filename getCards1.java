@@ -1,4 +1,4 @@
-import java.io.*;
+/* import java.io.*;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.ArrayList;
@@ -318,3 +318,4 @@ public class getCards extends JFrame// implements ActionListener
     }
 
 }
+*/

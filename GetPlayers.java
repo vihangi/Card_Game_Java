@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class GetPlayers extends JFrame implements ActionListener
 {
     public JPanel Players = new JPanel(new FlowLayout());
-    public getCards getCard = new getCards();
+    //public getCards getCard = new getCards();
     //public JPanel Information = new JPanel(new FlowLayout());
     public int number;
     public int count = 0 ;
@@ -20,7 +20,7 @@ public class GetPlayers extends JFrame implements ActionListener
         JLabel display = new JLabel(" Welcome To Mineral SuperTrumps");
         JLabel d2 = new JLabel(" Select Number of Player ( 3 to 5)");
        
-        add(Players);
+         setContentPane(Players);
      
         Players.add(display);
         Players.add(d2);
@@ -34,7 +34,7 @@ public class GetPlayers extends JFrame implements ActionListener
         p2.addActionListener(this);
         p3.addActionListener(this);
         p4.addActionListener(this);
-       
+      // return number;
     }
     @Override
     public void actionPerformed(ActionEvent e)
@@ -56,7 +56,7 @@ public class GetPlayers extends JFrame implements ActionListener
             d3.setText(" Total Number of Player : 5");
             number = 5;
         }
-        else if(number>2)
+        else if(number>=3)
         {
             if(e.getActionCommand() == p4.getText())
             {
@@ -67,7 +67,10 @@ public class GetPlayers extends JFrame implements ActionListener
                 p2.setEnabled(false);
                 p3.setEnabled(false);
                 p4.setEnabled(false);
-                getCount();
+                
+                getCards app = new getCards();
+                
+                app.getCard(getCount());
             }
         }
         else
@@ -78,7 +81,8 @@ public class GetPlayers extends JFrame implements ActionListener
     public int getCount()
     {
         //System.out.println(number);
-        getCard.getCards(number);
+        //getCard.getCard(number);
+        
         return number;
     }
     public static void main(String[] args)
