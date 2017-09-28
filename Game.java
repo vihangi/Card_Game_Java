@@ -18,17 +18,17 @@ public class Game extends JFrame implements ActionListener
     public JPanel CARDPANEL = new JPanel(new GridLayout(2,8));
     public JButton[][] cards ;
    
-    public int round = 1;
+    public int r = 1;
     public ImageIcon[][] image;
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
   
     public JLabel info = new JLabel("");
     public JButton deck1 = new JButton(" Pass ");
-    public JButton Next = new JButton(" NEXT ");
+  
     public int totalPlayers = 0;
-    public int totalskip , skip, nameP = 0;
-    public int temp = 1;
+    public int totalskip , skip = 0;
+    public int temp, nameP = 1;
    
     public JPanel Game = new JPanel();
     public int s1,s2,s3,s4,s5 = 0;
@@ -201,7 +201,7 @@ public class Game extends JFrame implements ActionListener
          Game.setLayout(new FlowLayout());
          setContentPane(Game);
          setSize(1250,6000);
-         Game.add(Next); 
+          
          Game.add(roundNumber);
          Game.add(info);
          Game.add(playerNumber);
@@ -215,15 +215,12 @@ public class Game extends JFrame implements ActionListener
          
          cards = new JButton[5][15];
          image = new ImageIcon[5][15];
-         //round =1 ;
-         System.out.println("Round " + round);
+         //r=1 ;
+         System.out.println("Round " + r);
          
-         if(round == 1)
-         {
-             nameP = 1;
-            }
+         
        
-            roundNumber.setText("Round " + round );
+            roundNumber.setText("Round " + r );
          // = 1;  
          if(nameP == 1)
          {
@@ -347,6 +344,7 @@ public class Game extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        roundNumber.setText("Round " + r );
         String input = e.getActionCommand();
        // s2=0;
        System.out.println("input " +input);
@@ -365,7 +363,8 @@ public class Game extends JFrame implements ActionListener
             if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -393,7 +392,8 @@ public class Game extends JFrame implements ActionListener
             if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -416,7 +416,8 @@ public class Game extends JFrame implements ActionListener
             if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -439,7 +440,8 @@ public class Game extends JFrame implements ActionListener
               if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -462,7 +464,8 @@ public class Game extends JFrame implements ActionListener
             if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -485,7 +488,8 @@ public class Game extends JFrame implements ActionListener
             if(nameP==totalPlayers)
             {
                 nameP=1;
-                round++;
+                r= r+1;
+                 roundNumber.setText("Round " + r );
             }
             else
             {
@@ -495,17 +499,7 @@ public class Game extends JFrame implements ActionListener
             round(nameP);
             //break;
        }
-       else if(input == Next.getText())
-       {
-           //cards.(false);
-           
-           //CARDPANEL.removeAll();
-           
-           
-           
-           
-           // break;
-        }
+       
        else
        {
            info.setText("Please try again");
@@ -570,14 +564,11 @@ public class Game extends JFrame implements ActionListener
     }
     public void round(int playerno)
     {
-        count ++;
-        if (round == 0)
-                    {
-                        temp = 1;
-                    } 
-        
-        
-        if(player1.size()<0 )
+                count ++;
+              
+                    
+                    
+                    if(player1.size()-1<0 )
                     {
                         System.out.println("Player 1 wins");
                         
@@ -608,12 +599,12 @@ public class Game extends JFrame implements ActionListener
                     else if(playerno ==1)
                     {
                      
-                        nameP= 1;
-                        temp=0;
+                            nameP= 1;
+                        
                             if(totalskip == totalPlayers && skip ==1)
                          {
                              totalskip =0;
-                             round=1;
+                             r=1;
                             }
                             //else if(totalskip == totalPlayers)
                             //{
@@ -622,7 +613,7 @@ public class Game extends JFrame implements ActionListener
                            
                             else
                             {
-                                round =0;
+                                //r=0;
                             }  
                          getCards(totalPlayers);
                          
@@ -641,12 +632,12 @@ public class Game extends JFrame implements ActionListener
                          if(totalskip == totalPlayers && skip==2)
                          {
                              totalskip =0;
-                             round=1;
+                             r=1;
                             }
                          
                             else
                             {
-                                //round=0;
+                                //r=0;
                             }
                             getCards(totalPlayers);
                         }     
@@ -668,7 +659,7 @@ public class Game extends JFrame implements ActionListener
                          if(totalskip == totalPlayers && skip==3)
                          {
                              totalskip =0;
-                             round =1;
+                             r=1;
                             }
                             
                             else
@@ -691,7 +682,7 @@ public class Game extends JFrame implements ActionListener
                                 if(totalskip == totalPlayers && skip ==4)
                              {
                                  totalskip =0;
-                                 round=1;
+                                 r=1;
                                 }
                              
                             else
@@ -715,12 +706,12 @@ public class Game extends JFrame implements ActionListener
                             if(totalskip == totalPlayers && skip==5)
                             {
                               totalskip =0;
-                              round = 1;
+                              r= 1;
                             }
                              
                             else
                             {
-                                //round = 0;
+                                //r= 0;
                             }
                             getCards(totalPlayers);
                             
@@ -732,7 +723,7 @@ public class Game extends JFrame implements ActionListener
                         System.out.println("Nothing");
                     }
                 
-                    
+                   
     }
     public Game(int total)
     {
@@ -741,7 +732,7 @@ public class Game extends JFrame implements ActionListener
         
          //display.setSize(1250,6000);
         // int temp =1;
-         round =1;
+         
          //display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          getCard(totalPlayers); 
          //getCards display = new getCards();
@@ -779,9 +770,10 @@ public class Game extends JFrame implements ActionListener
             }
             else 
             {
-                
+                temp =1; 
+                System.out.println("temp" + temp);   
                  round(temp);  
-                 //temp= temp+1;   
+                 temp= temp+1;   
                     
             }
            
