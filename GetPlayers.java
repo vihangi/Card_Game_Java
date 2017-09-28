@@ -68,9 +68,10 @@ public class GetPlayers extends JFrame implements ActionListener
                 p3.setEnabled(false);
                 p4.setEnabled(false);
                 
-                getCards app = new getCards(getCount());
+                Game app = new Game(getCount());
                 
                 //app.getCard(getCount());
+                //app.Game();
             }
         }
         else

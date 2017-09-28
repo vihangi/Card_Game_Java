@@ -10,7 +10,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class getCards extends JFrame implements ActionListener
+public class getCard45 extends JFrame implements ActionListener
 {
     //public GetPlayers get = new GetPlayers(); 
     public JLabel cardweight = new JLabel("card weight");
@@ -21,13 +21,14 @@ public class getCards extends JFrame implements ActionListener
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
     public JLabel cardadd = new JLabel("Cards Added :");
+    public JLabel info = new JLabel("");
     public JButton deck1 = new JButton(" Pass ");
     public JButton Next = new JButton(" NEXT ");
     public int totalPlayers = 0;
     public int totalskip , skip, nameP = 0;
    
     public JPanel Game = new JPanel();
-    public int s1,s2,s3,s4 = 0;
+    public int s1,s2,s3,s4,s5 = 0;
     public String s="";
     public ArrayList<String> deck = new ArrayList<String>();
     public ArrayList<String> deckImage = new ArrayList<String>();
@@ -82,9 +83,10 @@ public class getCards extends JFrame implements ActionListener
             {
                 deck.add(supertrump[i]);
                 i++;
-            }*/
-            
+            }
+            */
             // cards shuffled
+            
             Collections.shuffle(deck.subList(0, deck.size()-1));
             System.out.println(" Deck size " +deck.size());
             
@@ -183,7 +185,7 @@ public class getCards extends JFrame implements ActionListener
         }
         
         }
-    public  getCards(int totalPlayers)
+    public void getCards(int totalPlayers)
     {
     
         
@@ -196,12 +198,15 @@ public class getCards extends JFrame implements ActionListener
          System.out.println("Test" + totalPlayers);
          Game.setLayout(new GridLayout(3,8));
          setContentPane(Game);
+         setSize(1250,6000);
+         
         // Game.add(temp);
          Game.add(playerNumber);
          Game.add(cardweight);
          Game.add(roundNumber);
          Game.add(cardadd);
          Game.add(deck1);
+         Game.add(info);
          deck1.addActionListener(this);
          setVisible(true);
          
@@ -211,7 +216,8 @@ public class getCards extends JFrame implements ActionListener
          {
              nameP = 1;
             }
-           roundNumber.setText("Round " + round );
+       
+            roundNumber.setText("Round " + round );
            
          if(nameP == 1)
          {
@@ -225,10 +231,11 @@ public class getCards extends JFrame implements ActionListener
             
              
              cards[0][i] = new JButton(image[0][i]);
+             cards[0][i].setActionCommand("0,"+ i);
              cards[0][i].addActionListener(this);
              Game.add(cards[0][i]);
              setSize(600,600);
-             //nameP ++;
+             
             }
         }
         else if(nameP == 2)
@@ -243,6 +250,7 @@ public class getCards extends JFrame implements ActionListener
                 
                  
                  cards[1][i] = new JButton(image[0][i]);
+                 cards[1][i].setActionCommand("1,"+ i);
                  cards[1][i].addActionListener(this);
                  Game.add(cards[1][i]);
                  setSize(600,600);
@@ -260,6 +268,7 @@ public class getCards extends JFrame implements ActionListener
             
              
              cards[2][i] = new JButton(image[0][i]);
+             cards[2][i].setActionCommand("2,"+ i);
              cards[2][i].addActionListener(this);
              Game.add(cards[2][i]);
              setSize(600,600);
@@ -274,9 +283,9 @@ public class getCards extends JFrame implements ActionListener
              Image image1 = image[3][i].getImage();
              Image newing = image1.getScaledInstance(270,300,java.awt.Image.SCALE_SMOOTH);
              image[3][i] =new ImageIcon(newing);
-            
-             
+           
              cards[3][i] = new JButton(image[0][i]);
+             cards[3][i].setActionCommand("3,"+ i);
              cards[3][i].addActionListener(this);
              Game.add(cards[3][i]);
              setSize(600,600);
@@ -293,6 +302,7 @@ public class getCards extends JFrame implements ActionListener
              image[4][i] =new ImageIcon(newing);
            
              cards[4][i] = new JButton(image[0][i]);
+             cards[4][i].setActionCommand("4,"+ i);
              cards[4][i].addActionListener(this);
              Game.add(cards[4][i]);
              setSize(600,600);
@@ -305,26 +315,90 @@ public class getCards extends JFrame implements ActionListener
         Game.add(Next); 
         validate();
         //break;
-        
+      
     
   
     }
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getActionCommand() == deck1.getText())
+        String input = e.getActionCommand();
+       while(true)
+       {
+        if(input == deck1.getText())
         {
             deck1.setText("Adding Card");
             deck1.setEnabled(false);
             cardsadded++;
+            totalskip ++;
             cardadd.setText("Cards added : " + cardsadded);
             getpass(nameP);
             
-            
+            break;
         }
-       
-        
-        
+        else if( input.substring(0,input.indexOf(",")).equals("0")==true)
+        {
+            //player 1
+            int temp = Integer.valueOf(input.substring(2));
+            
+            deck.add(player1.get(temp));
+            player1.remove(temp);
+            player1Image.remove(temp);
+            cards[0][temp].setEnabled(false);
+            //System.out.println(deck.size());
+            break;
+       }
+        else if( input.substring(0,input.indexOf(",")).equals("1")==true)
+        {
+            //player 2
+            int temp = Integer.valueOf(input.substring(2));
+            cards[1][temp].setEnabled(false);
+             deck.add(player2.get(temp));
+            player2.remove(temp);
+            player2Image.remove(temp);
+            break;
+       }
+        else if( input.substring(0,input.indexOf(",")).equals("2")==true)
+        {
+            //player 3
+            int temp = Integer.valueOf(input.substring(2));
+            cards[2][temp].setEnabled(false);
+             deck.add(player3.get(temp));
+            player3.remove(temp);
+            player3Image.remove(temp);
+       }
+        else if( input.substring(0,input.indexOf(",")).equals("3")==true)
+        {
+            //player 4
+            int temp = Integer.valueOf(input.substring(2));
+            cards[3][temp].setEnabled(false);
+             deck.add(player4.get(temp));
+            player4.remove(temp);
+            player4Image.remove(temp);
+            break;
+       }
+        else if( input.substring(0,input.indexOf(",")).equals("4")==true)
+        {
+            //player 5
+            int temp = Integer.valueOf(input.substring(2));
+            cards[4][temp].setEnabled(false);
+             deck.add(player5.get(temp));
+            player5.remove(temp);
+            player5Image.remove(temp);
+            break;
+       }
+       else if(input == Next.getText())
+       {
+           //cards.(false);
+           break;
+        }
+       else
+       {
+           info.setText("Please try again");
+           break;
+        }
+     }
+       // System.out.println(input.substring(0,input.indexOf(",")).equals("0"));
     }
     public void getpass(int playerno)
     {
@@ -382,12 +456,186 @@ public class getCards extends JFrame implements ActionListener
     {
     
          
-         getCards display = new getCards(0);
-         display.setSize(1250,6000);
+         //getCards display = new getCards();
+         //display.setSize(1250,6000);
          
-         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         //display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          
+         
+         while(true)
+        {
+            int n ;
+            
+            
+            //checking if any player has lost all cards
+            if(player1.size()-1<0 )
+            {
+                System.out.println("Player 1 wins");
+                break;
+            }
+            else if(player2.size()-1<0)
+            {
+                 System.out.println("Player 2 wins");
+                break;
+            }
+            else if(player3.size()-1<0)
+            {
+                 System.out.println("Player 3 wins");
+                break;
+            }
+            else if(player4.size()-1<0 && totalPlayers  == 4)
+            {
+                 System.out.println("Player 4 wins");
+                break;
+            }
+            else if(player5.size()-1<0 && totalPlayers == 5)
+            {
+                 System.out.println("Player 5 wins");
+                break;
+            }
+            else 
+            {
+                
+                    round =0;
+                    
+                  
+                    //player1
+                    
+                        while(s1==0 )
+                        {
+                        nameP= 1;
+                            if(totalskip == totalPlayers && skip ==1)
+                         {
+                             totalskip =0;
+                             round=1;
+                            }
+                            else if(totalskip == totalPlayers)
+                            {
+                                break;
+                            }
+                           
+                            else
+                            {
+                                round =0;
+                            }   
+                        getCards(totalPlayers);
+                       
+                       // n = SettingRound(player1,1,totalPlayers,round);
+                       break;
+                    }
+                    //player 2
+                    while(s2==0)
+                    {
+                         nameP = 2;
+                         if(totalskip == totalPlayers && skip==2)
+                         {
+                             totalskip =0;
+                             round=1;
+                            }
+                            else if(totalskip == totalPlayers)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                round=0;
+                            }
+                       
+                        //player 2
+                        
+                        getCards(totalPlayers);
+                        
+                        
+                        break;
+                    }
+                    //player 3
+                    while(s3==0)
+                    {
+                       
+                        // player 3
+                        nameP = 3;
+                         if(totalskip == totalPlayers && skip==3)
+                         {
+                             totalskip =0;
+                             round =1;
+                            }
+                            else if(totalskip == totalPlayers)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                round=0;
+                            }
+                        //displaying the cards
+                            getCards(totalPlayers);
+                       
+                        break;
+                    }
+                    //player 4
+                    while (s4==0)
+                    {
+                        nameP = 4;
+                        if(totalPlayers == 4 || totalPlayers == 5 || skip == 5)
+                        {
+                           
+                                if(totalskip == totalPlayers && skip ==4)
+                             {
+                                 totalskip =0;
+                                 round=1;
+                                }
+                                else if(totalskip == totalPlayers)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                round=0;
+                            }
+                            getCards(totalPlayers);
+                            
+                            }
+                        
+                        break;
+                    }
+                    //player 5
+                    while(s5==0 )
+                    {
+                        nameP = 5;
+                        if(totalPlayers == 5)
+                        {
+                            
+                            if(totalskip == totalPlayers && skip==5)
+                            {
+                              totalskip =0;
+                              round = 1;
+                            }
+                             else if(totalskip == totalPlayers)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                round = 0;
+                            }
+                            getCards(totalPlayers);
+                            
+                            }
+                        }
+                        break;
+                    }
+                    
+                        
+                    
+            }
+           
+                    
+                
+            }
+            
+        
          
     }
+    
 
-}
+
