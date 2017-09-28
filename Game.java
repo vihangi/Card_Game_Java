@@ -13,16 +13,16 @@ import java.awt.event.*;
 public class Game extends JFrame implements ActionListener
 {
     //public GetPlayers get = new GetPlayers(); 
-    public int count =0;
+    public int count  =0;
     public JLabel cardweight = new JLabel("card weight");
     public JPanel CARDPANEL = new JPanel(new GridLayout(2,8));
     public JButton[][] cards ;
-    public int cardsadded = 0;
+   
     public int round = 1;
     public ImageIcon[][] image;
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
-    public JLabel cardadd = new JLabel("Cards Added :");
+  
     public JLabel info = new JLabel("");
     public JButton deck1 = new JButton(" Pass ");
     public JButton Next = new JButton(" NEXT ");
@@ -206,7 +206,7 @@ public class Game extends JFrame implements ActionListener
          Game.add(info);
          Game.add(playerNumber);
          Game.add(cardweight);  
-         Game.add(cardadd);
+       
          Game.add(deck1);
          CARDPANEL.setSize(500,1000);
         // Game.add(temp);
@@ -224,7 +224,7 @@ public class Game extends JFrame implements ActionListener
             }
        
             roundNumber.setText("Round " + round );
-         //count = 1;  
+         // = 1;  
          if(nameP == 1)
          {
              playerNumber.setText(" Player Number " + nameP);
@@ -284,7 +284,7 @@ public class Game extends JFrame implements ActionListener
                 
                  
                  cards[0][i] = new JButton(image[0][i]);
-                 cards[0][i].setActionCommand("1,"+ i);
+                 cards[0][i].setActionCommand("2,"+ i);
                  cards[0][i].addActionListener(this);
                  System.out.println(cards[0][i]);
                  CARDPANEL.add(cards[0][i]);
@@ -304,7 +304,7 @@ public class Game extends JFrame implements ActionListener
                 
                  
                  cards[0][i] = new JButton(image[0][i]);
-                 cards[0][i].setActionCommand("1,"+ i);
+                 cards[0][i].setActionCommand("3,"+ i);
                  cards[0][i].addActionListener(this);
                  System.out.println(cards[0][i]);
                  CARDPANEL.add(cards[0][i]);
@@ -324,7 +324,7 @@ public class Game extends JFrame implements ActionListener
                 
                  
                  cards[0][i] = new JButton(image[0][i]);
-                 cards[0][i].setActionCommand("1,"+ i);
+                 cards[0][i].setActionCommand("4,"+ i);
                  cards[0][i].addActionListener(this);
                  System.out.println(cards[0][i]);
                  CARDPANEL.add(cards[0][i]);
@@ -353,27 +353,28 @@ public class Game extends JFrame implements ActionListener
        
         if(input == deck1.getText())
         {
-            count=1;
-            deck1.setText("Adding Card");
+           
+           
             //deck1.setEnabled(false);
-            cardsadded++;
+           
             totalskip ++;
-            cardadd.setText("Cards added : " + cardsadded);
+            
             getpass(nameP);
-            CARDPANEL.removeAll();
-             count=1;
-            temp=temp+1;
+            
+           
             if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
-            round(nameP);
+           }
+             CARDPANEL.removeAll(); 
+           round(nameP);
             //round(temp+1);
-            
+          
             
             //break;
         }
@@ -389,16 +390,15 @@ public class Game extends JFrame implements ActionListener
             CARDPANEL.removeAll();
             //cards[0][temp].setEnabled(false);
             //System.out.println(deck.size());
-            count=1;
-            temp=temp+1;
-             if(nameP==totalPlayers)
+            if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
+           }
             
             round(nameP);
            // break;
@@ -413,16 +413,15 @@ public class Game extends JFrame implements ActionListener
             player2Image.remove(temp);
             CARDPANEL.removeAll();
            
-             count=1;
-            temp=temp+1;
-             if(nameP==totalPlayers)
+            if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
+           }
             
             round(nameP);
             //break;
@@ -436,18 +435,18 @@ public class Game extends JFrame implements ActionListener
             player3.remove(temp);
             player3Image.remove(temp);
             CARDPANEL.removeAll();
-            count=1;
-            temp=temp+1;
-             if(nameP==totalPlayers)
+            
+              if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
+           }
+              round(nameP);
             
-            round(nameP);
             //break;
        }
         else if( input.substring(0,input.indexOf(",")).equals("3")==true)
@@ -459,16 +458,16 @@ public class Game extends JFrame implements ActionListener
             player4.remove(temp);
             player4Image.remove(temp);
             CARDPANEL.removeAll();
-             count=1;
-            temp=temp+1;
-             if(nameP==totalPlayers)
+          
+            if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
+           }
             
             round(nameP);
             //break;
@@ -482,16 +481,16 @@ public class Game extends JFrame implements ActionListener
             player5.remove(temp);
             player5Image.remove(temp);
             CARDPANEL.removeAll();
-             count=1;
-            temp=temp+1;
-             if(nameP==totalPlayers)
+           
+            if(nameP==totalPlayers)
             {
                 nameP=1;
+                round++;
             }
             else
             {
             nameP= nameP+1;
-        }
+           }
             
             round(nameP);
             //break;
@@ -504,13 +503,13 @@ public class Game extends JFrame implements ActionListener
            
            
            
-           count++;
+           
            // break;
         }
        else
        {
            info.setText("Please try again");
-           count=0;
+           
            //break;
         }
         
@@ -523,7 +522,7 @@ public class Game extends JFrame implements ActionListener
         if(playerno == 1)
         {
             
-            //System.out.println("Entered player 1");
+            System.out.println("Entered player 1");
             
             String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
             int num1= Integer.parseInt(s);
@@ -567,18 +566,46 @@ public class Game extends JFrame implements ActionListener
             player5.add(deck.get(0));
             deck.remove(0);
         }
-        
+        round(nameP);
     }
     public void round(int playerno)
     {
-                    
-                    if (round == 0)
+        count ++;
+        if (round == 0)
                     {
                         temp = 1;
+                    } 
+        
+        
+        if(player1.size()<0 )
+                    {
+                        System.out.println("Player 1 wins");
+                        
                     }
+                    else if(player2.size()-1<0)
+                    {
+                         System.out.println("Player 2 wins");
+                        
+                    }
+                    else if(player3.size()-1<0)
+                    {
+                         System.out.println("Player 3 wins");
+                        
+                    }
+                    else if(player4.size()-1<0 && totalPlayers  == 4)
+                    {
+                         System.out.println("Player 4 wins");
+                        
+                    }
+                    else if(player5.size()-1<0 && totalPlayers == 5)
+                    {
+                         System.out.println("Player 5 wins");
+                        
+                    }
+                   
                   
                     //player1
-                    if(playerno ==1)
+                    else if(playerno ==1)
                     {
                      
                         nameP= 1;
@@ -599,7 +626,6 @@ public class Game extends JFrame implements ActionListener
                             }  
                          getCards(totalPlayers);
                          
-                         System.out.println("CC" + count);
                           
                         }  
                         //nameP=0;
