@@ -993,5 +993,77 @@ public class Game34 extends JFrame implements ActionListener
        
         }
     }
-
+ int cardnumber = Integer.valueOf(input.substring(2));
+           //nameP= nameP + 1;
+            setCategory.setLayout(new FlowLayout());
+            setCategory.setSize(400, 250);
+            setCategory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            String[] options = {"Hardness" , "Specific Gravity", "Cleavage" , "Crustal Abundance" , "Economic Value" };
+            
+            int response = JOptionPane.showOptionDialog(setCategory, "Choose Category " ,"enter category" ,JOptionPane.DEFAULT_OPTION , 
+            JOptionPane.QUESTION_MESSAGE, null , options , "Hardness");
+            
+            switch(response)
+           {
+               case 0 :
+               {
+                 cardweight.setText("Cateogry : Hardness ");
+                 category = 2;
+                
+                    String[] p =player1.get(cardnumber).split(",");
+                    categoryweight = Double.valueOf( p[2]);
+                    
+                }
+                
+                cardweight.setText("Cateogry : Hardness " + categoryweight);
+                break;
+            
+                case 1 :
+                {
+                cardweight.setText("Cateogry : Specific Gravity ");
+                 category = 3;
+                
+                    String[] p =player1.get(cardnumber).split(",");
+                    System.out.println("SC " + p[3]);
+                    categoryweight = Double.valueOf( p[3]);
+               
+                cardweight.setText("Cateogry : Specific Gravity " + categoryweight);
+                break; 
+               }
+               case 2 :
+            {
+                cardweight.setText("Cateogry : Cleavage ");
+                 category = 4;
+               
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[4];
+               
+                cardweight.setText("Cateogry : Cleavage " + weight);
+                break;
+            }
+            case 3 :
+            {
+                cardweight.setText("Cateogry : Crustal Abundance ");
+                 category = 5;
+                 
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[5];
+                
+              
+                cardweight.setText("Cateogry : Crustal Abundance " + weight);
+                break;
+            }
+            case 4 :
+            {
+                cardweight.setText("Cateogry : Economic Value ");
+                 category = 6;
+                
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[6];
+                
+                cardweight.setText("Cateogry : Economic Value " + weight);
+                break;
+            }
+        }  
 
