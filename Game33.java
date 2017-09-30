@@ -10,12 +10,18 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Game34 extends JFrame implements ActionListener
+public class Game33 extends JFrame implements ActionListener
 {
     //public GetPlayers get = new GetPlayers(); 
     public int count  =0;
     public JLabel cardweight = new JLabel("card weight");
-    
+    public String crustal[] = {"ultratrace" , "trace","low","moderate", "high","very high"};
+    public String economic[] = {"trivial" , "low","moderate", "high","very high", "I'm rich!"};
+    public String cleavage[] = {"none" , "poor/none" , "1 poor", "2 poor","1 good","1 good/1 poor","2 good",
+        "3 good","1 perfect","1 perfect/1 good","1 perfect/2 good","2 perfect/1 good","3 perfect","4 perfect","6 perfect"};
+    public String supertrump[] ={"Supertrump card,Petrologist,Crustal", "Supertrump card,Gemmologist,Hardness",
+        "Supertrump card,Miner,EcoValue" ,"Supertrump card,Mineralogist,Cleavage",
+        "Supertrump card,Geophysicist,Gravity,Magnetite","Supertrump card,Geologist,any"};
     public JPanel CARDPANEL = new JPanel(new GridLayout(2,8));
     public JButton[][] cards ;
     public JFrame setCategory = new JFrame(" Set Category");
@@ -23,8 +29,8 @@ public class Game34 extends JFrame implements ActionListener
     public ImageIcon[][] image;
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
-    public String category = "";
-    public JLabel info = new JLabel("");
+    public int category = 0;
+    public JLabel info = new JLabel("information");
     public JButton deck1 = new JButton(" Pass ");
     public double categoryweight=0;
     public int totalPlayers  = 0;
@@ -350,6 +356,14 @@ public class Game34 extends JFrame implements ActionListener
         String input = e.getActionCommand();
        // s2=0;
        System.out.println("input " +input);
+        
+       if(r == 1 && input.substring(0,input.indexOf(",")).equals("0")==true)
+       {
+            int temp = Integer.valueOf(input.substring(2));
+           settingRound(temp, 1);
+           nameP= nameP+1;
+        }
+        
        
         if(input == deck1.getText())
         {
@@ -359,19 +373,12 @@ public class Game34 extends JFrame implements ActionListener
            
             totalskip ++;
             
-            getpass(nameP);
+           // getpass(nameP);
             
            
-            if(nameP==totalPlayers)
-            {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
-            }
-            else
-            {
+            
             nameP= nameP+1;
-           }
+           
              CARDPANEL.removeAll(); 
            round(nameP);
             //round(temp+1);
@@ -383,31 +390,84 @@ public class Game34 extends JFrame implements ActionListener
         {
             //player 1
              int temp = Integer.valueOf(input.substring(2));
-            if(r == 1)
-            {
-                settingRound(temp, 1);
-            }
-           
             
-            deck.add(player1.get(temp));
-            player1.remove(temp);
-            player1Image.remove(temp);
-            
-            CARDPANEL.removeAll();
+         
             //cards[0][temp].setEnabled(false);
             //System.out.println(deck.size());
-            if(nameP==totalPlayers)
+       
+           
+           
+              if(category == 2 || category== 3)
             {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
-            }
-            else
-            {
-            nameP= nameP+1;
-           }
+                int y1 = IntHigerValue(1, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = IntHigerValue(1, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player1.get(temp));
+                    player1.remove(temp);
+                    player1Image.remove(temp);
             
-            round(nameP);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+                //round(nameP);
+                
+            }
+            if(category == 4 || category == 5 || category == 6)
+            {
+                int y1 = StringHigherValue(1, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = StringHigherValue(1, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player1.get(temp));
+                    player1.remove(temp);
+                    player1Image.remove(temp);
+            
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+            }
+           /*if(r > 1)
+           {
+               round(nameP);
+               
+            }*/
            // break;
        }
         else if( input.substring(0,input.indexOf(",")).equals("1")==true)
@@ -416,47 +476,144 @@ public class Game34 extends JFrame implements ActionListener
             
             int temp = Integer.valueOf(input.substring(2));
             //cards[1][temp].setEnabled(false);
-             deck.add(player2.get(temp));
-            player2.remove(temp);
-            player2Image.remove(temp);
-            CARDPANEL.removeAll();
-           
-            if(nameP==totalPlayers)
+       
+            
+           if(category == 2 || category== 3 )
             {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
+                int y2 = IntHigerValue(2, temp);
+                if(y2==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y2 = IntHigerValue(2, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                     deck.add(player2.get(temp));
+                    player2.remove(temp);
+                    player2Image.remove(temp);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+                //round(nameP);
+                
             }
-            else
+            if(category == 4 || category == 5 || category == 6)
             {
-            nameP= nameP+1;
-           }
+                int y1 = StringHigherValue(2, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = StringHigherValue(2, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player2.get(temp));
+                    player2.remove(temp);
+                    player2Image.remove(temp);
             
-            round(nameP);
-            
-            //break;
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+            }
+
        }
         else if( input.substring(0,input.indexOf(",")).equals("2")==true)
         {
             //player 3
-            int temp = Integer.valueOf(input.substring(2));
-            //cards[2][temp].setEnabled(false);
-             deck.add(player3.get(temp));
-            player3.remove(temp);
-            player3Image.remove(temp);
-            CARDPANEL.removeAll();
             
-              if(nameP==totalPlayers)
+              int temp = Integer.valueOf(input.substring(2));
+        
+            if(category == 2 || category== 3)
             {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
+                int y3 = IntHigerValue(3, temp);
+                if(y3==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y3 = IntHigerValue(3, temp);
+                
+               }
+               else
+                {
+                    
+                    if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                     deck.add(player3.get(temp));
+                    player3.remove(temp);
+                    player3Image.remove(temp);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+                //round(nameP);
+                
             }
-            else
+            if(category == 4 || category == 5 || category == 6)
             {
-            nameP= nameP+1;
-           }
-              round(nameP);
+                int y1 = StringHigherValue(3, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = StringHigherValue(3, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player3.get(temp));
+                    player3.remove(temp);
+                    player3Image.remove(temp);
+            
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+            }
             
             //break;
        }
@@ -465,23 +622,71 @@ public class Game34 extends JFrame implements ActionListener
             //player 4
             int temp = Integer.valueOf(input.substring(2));
             //cards[3][temp].setEnabled(false);
-             deck.add(player4.get(temp));
-            player4.remove(temp);
-            player4Image.remove(temp);
-            CARDPANEL.removeAll();
-          
-            if(nameP==totalPlayers)
+         
+            if(category == 2 || category== 3)
             {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
+                int y4 = IntHigerValue(4, temp);
+                if(y4==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y4 = IntHigerValue(4, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                      deck.add(player4.get(temp));
+                    player4.remove(temp);
+                    player4Image.remove(temp);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                    
+                }
+                //round(nameP);
+                
             }
-            else
+            if(category == 4 || category == 5 || category == 6)
             {
-            nameP= nameP+1;
-           }
+                int y1 = StringHigherValue(4, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = StringHigherValue(4, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player4.get(temp));
+                    player4.remove(temp);
+                    player4Image.remove(temp);
             
-            round(nameP);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+            }
             //break;
        }
         else if( input.substring(0,input.indexOf(",")).equals("4")==true)
@@ -489,23 +694,71 @@ public class Game34 extends JFrame implements ActionListener
             //player 5
             int temp = Integer.valueOf(input.substring(2));
             //cards[4][temp].setEnabled(false);
-             deck.add(player5.get(temp));
-            player5.remove(temp);
-            player5Image.remove(temp);
-            CARDPANEL.removeAll();
-           
-            if(nameP==totalPlayers)
+         
+            if(category == 2 || category== 3)
             {
-                nameP=1;
-                r= r+1;
-                 roundNumber.setText("Round " + r );
+                int y5 = IntHigerValue(5, temp);
+                if(y5==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y5 = IntHigerValue(5, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                   // nameP= nameP+1;
+                    deck.add(player5.get(temp));
+                    player5.remove(temp);
+                    player5Image.remove(temp);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+                //round(nameP);
+                
             }
-            else
+            if(category == 4 || category == 5 || category == 6)
             {
-            nameP= nameP+1;
-           }
+                int y1 = StringHigherValue(5, temp);
+                if(y1==1)
+                {
+                CARDPANEL.removeAll();
+                round(nameP);
+                y1 = StringHigherValue(5, temp);
+                
+               }
+               else
+                {
+                     if(nameP==totalPlayers)
+                    {
+                        nameP=1;
+                        r= r+1;
+                         roundNumber.setText("Round " + r );
+                    }
+                    
+                    else
+                    {
+                        nameP= nameP+1;
+                    }
+                    //nameP= nameP+1;
+                        deck.add(player5.get(temp));
+                    player5.remove(temp);
+                    player5Image.remove(temp);
             
-            round(nameP);
+                    CARDPANEL.removeAll();
+                    round(nameP);
+                }
+            }
             //break;
        }
        
@@ -516,7 +769,7 @@ public class Game34 extends JFrame implements ActionListener
            //break;
         }
         
-     
+        
        // System.out.println(input.substring(0,input.indexOf(",")).equals("0"));
     }
     public void settingRound(int cardnumber ,int no)
@@ -529,36 +782,39 @@ public class Game34 extends JFrame implements ActionListener
         
         int response = JOptionPane.showOptionDialog(setCategory, "Choose Category " ,"enter category" ,JOptionPane.DEFAULT_OPTION , 
         JOptionPane.QUESTION_MESSAGE, null , options , "Hardness");
+        
         switch(response)
         {
             case 0 :
             {
                  cardweight.setText("Cateogry : Hardness ");
+                 category = 2;
                 if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
-                    categoryweight = Integer.valueOf( p[2]);
+                    System.out.println("Clear 1");
+                    categoryweight = Double.valueOf( p[2]);
                     
                 }
                 else if(no == 2)
                 {
                     String[] p =player2.get(cardnumber).split(",");
-                    categoryweight = Integer.valueOf( p[2]);
+                    categoryweight = Double.valueOf( p[2]);
                 }
                 else if(no == 3)
                 {
                     String[] p =player3.get(cardnumber).split(",");
-                    categoryweight = Integer.valueOf( p[2]);
+                    categoryweight = Double.valueOf( p[2]);
                 }
                 else if(no == 4)
                 {
                     String[] p =player4.get(cardnumber).split(",");
-                    categoryweight = Integer.valueOf( p[2]);
+                    categoryweight = Double.valueOf( p[2]);
                 }
                 else if(no == 5)
                 {
                     String[] p =player5.get(cardnumber).split(",");
-                    categoryweight = Integer.valueOf( p[2]);
+                    categoryweight = Double.valueOf( p[2]);
                 }
                 else
                 {
@@ -570,6 +826,7 @@ public class Game34 extends JFrame implements ActionListener
             case 1 :
             {
                 cardweight.setText("Cateogry : Specific Gravity ");
+                 category = 3;
                 if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
@@ -607,6 +864,7 @@ public class Game34 extends JFrame implements ActionListener
             case 2 :
             {
                 cardweight.setText("Cateogry : Cleavage ");
+                 category = 4;
                 if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
@@ -642,6 +900,7 @@ public class Game34 extends JFrame implements ActionListener
             case 3 :
             {
                 cardweight.setText("Cateogry : Crustal Abundance ");
+                 category = 5;
                  if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
@@ -677,6 +936,7 @@ public class Game34 extends JFrame implements ActionListener
             case 4 :
             {
                 cardweight.setText("Cateogry : Economic Value ");
+                 category = 6;
                  if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
@@ -710,13 +970,189 @@ public class Game34 extends JFrame implements ActionListener
                 break;
             }
         }  
-        nameP = nameP + 1;
-        round(nameP);
-        Game.add(setCategory);
-    }
-    public void HigerValue(int playerno)
-    {
+       System.out.println("2" + category);
+         
+         System.out.println("2" + category);
+         
+        //round(nameP);
+        //getCards(totalPlayers);
         
+        //return category;
+    }
+    public int IntHigerValue(int playerno , int cardnumber)
+    {
+        double compareVal = 0;
+        int c = 0;
+        System.out.println("enteree" + category );
+        if(playerno == 1)
+       {
+          String[] p =player1.get(cardnumber).split(",");
+          compareVal =  Double.valueOf(p[category]);
+        }
+       else if (playerno == 2)
+       {
+          String[] p =player2.get(cardnumber).split(",");
+         
+          System.out.println("comapre2 " +  p[category] );
+          compareVal = Double.valueOf(p[category]);
+          System.out.println("comapre " + compareVal );
+        }
+        else if(playerno == 3)
+        {
+            String[] p =player3.get(cardnumber).split(",");
+          compareVal =  Double.valueOf(p[category]);
+        }
+        else if(playerno ==4)
+        {
+            String[] p =player4.get(cardnumber).split(",");
+          compareVal =  Double.valueOf(p[category]);
+        }
+        else if(playerno == 5)
+        {
+            String[] p =player5.get(cardnumber).split(",");
+          compareVal =  Double.valueOf(p[category]);
+        }
+        else
+        {
+            System.out.println("Invalid");
+        }
+        if(categoryweight>= compareVal)
+        {
+            info.setText("Select a card with a higher Value ");
+            c=1;
+        }
+        else 
+        {
+            categoryweight = compareVal;
+            info.setText("");
+            c=0;
+        }
+        System.out.println(categoryweight + " C" + c );
+        if(category == 3)
+        {
+        cardweight.setText("Cateogry : Specific Gravity " + categoryweight);
+         }
+        else
+        {
+        cardweight.setText("Cateogry :  Hardness " + categoryweight);
+       }
+       return c;
+    }
+    public int StringHigherValue(int playerno , int cardnumber)
+    {
+       String compareVal = "";
+        int c = 0;
+        System.out.println("enteree" + playerno );
+        if(playerno == 1)
+       {
+          String[] p =player1.get(cardnumber).split(",");
+          compareVal = p[category];
+        }
+       else if (playerno == 2)
+       {
+          String[] p =player2.get(cardnumber).split(",");
+          compareVal = p[category];
+        }
+        else if(playerno == 3)
+        {
+            String[] p =player3.get(cardnumber).split(",");
+          compareVal = p[category];
+        }
+        else if(playerno ==4)
+        {
+            String[] p =player4.get(cardnumber).split(",");
+          compareVal = p[category];
+        }
+        else if(playerno == 5)
+        {
+            String[] p =player5.get(cardnumber).split(",");
+          compareVal = p[category];
+        }
+        else
+        {
+            System.out.println("Invalid player");
+        }
+       int i = 0;
+       int m =0 ;
+        if(category == 4)
+       {
+           //cleavage
+                   while(compareVal.equals(cleavage[i])== false )
+                          {
+                                                  
+                            i++;
+                                                  
+                          }
+                   while(weight.equals(cleavage[m])== false )
+                              {
+                                  m++;
+                                  
+                                }
+        }
+        else if(category == 5)
+        {
+           //crustal abundance
+           System.out.println("crustal " + compareVal);
+             while(compareVal.equals(crustal[i])== false )
+                          {
+                                                  
+                            i++;
+                                                  
+                          }
+                   while(weight.equals(crustal[m])== false )
+                              {
+                                  m++;
+                                  
+                                }
+        }
+        
+        else if(category == 6)
+        {
+            //economic value
+              while(compareVal.equals(economic[i])== false )
+                          {
+                                                  
+                            i++;
+                                                  
+                          }
+                   while(weight.equals(economic[m])== false )
+                              {
+                                  m++;
+                                  
+                                }
+        }
+        else
+        {
+            System.out.println("Invalid category");
+        }
+        
+        if(m>=i)
+        {
+            info.setText("Select a card with a higher Value ");
+            c=1;
+        }
+        else
+        {
+            weight = compareVal;
+            info.setText("");
+            c=0;
+        }
+        if(category == 4)
+        {
+        cardweight.setText("Cateogry : Cleavage " + weight);
+         }
+        else if(category ==5)
+        {
+        cardweight.setText("Cateogry :  Crustal Abundance " + weight);
+       }
+       else if(category == 6)
+       {
+           cardweight.setText("Cateogry :  Economic Value " + weight);
+        }
+        else
+        {
+        }
+       return c;
         
     }
     public void getpass(int playerno)
@@ -769,7 +1205,7 @@ public class Game34 extends JFrame implements ActionListener
             player5.add(deck.get(0));
             deck.remove(0);
         }
-        round(nameP);
+        //round(nameP);
     }
     public void round(int playerno)
     {
@@ -993,77 +1429,5 @@ public class Game34 extends JFrame implements ActionListener
        
         }
     }
- int cardnumber = Integer.valueOf(input.substring(2));
-           //nameP= nameP + 1;
-            setCategory.setLayout(new FlowLayout());
-            setCategory.setSize(400, 250);
-            setCategory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-            String[] options = {"Hardness" , "Specific Gravity", "Cleavage" , "Crustal Abundance" , "Economic Value" };
-            
-            int response = JOptionPane.showOptionDialog(setCategory, "Choose Category " ,"enter category" ,JOptionPane.DEFAULT_OPTION , 
-            JOptionPane.QUESTION_MESSAGE, null , options , "Hardness");
-            
-            switch(response)
-           {
-               case 0 :
-               {
-                 cardweight.setText("Cateogry : Hardness ");
-                 category = 2;
-                
-                    String[] p =player1.get(cardnumber).split(",");
-                    categoryweight = Double.valueOf( p[2]);
-                    
-                }
-                
-                cardweight.setText("Cateogry : Hardness " + categoryweight);
-                break;
-            
-                case 1 :
-                {
-                cardweight.setText("Cateogry : Specific Gravity ");
-                 category = 3;
-                
-                    String[] p =player1.get(cardnumber).split(",");
-                    System.out.println("SC " + p[3]);
-                    categoryweight = Double.valueOf( p[3]);
-               
-                cardweight.setText("Cateogry : Specific Gravity " + categoryweight);
-                break; 
-               }
-               case 2 :
-            {
-                cardweight.setText("Cateogry : Cleavage ");
-                 category = 4;
-               
-                    String[] p =player1.get(cardnumber).split(",");
-                    weight = p[4];
-               
-                cardweight.setText("Cateogry : Cleavage " + weight);
-                break;
-            }
-            case 3 :
-            {
-                cardweight.setText("Cateogry : Crustal Abundance ");
-                 category = 5;
-                 
-                    String[] p =player1.get(cardnumber).split(",");
-                    weight = p[5];
-                
-              
-                cardweight.setText("Cateogry : Crustal Abundance " + weight);
-                break;
-            }
-            case 4 :
-            {
-                cardweight.setText("Cateogry : Economic Value ");
-                 category = 6;
-                
-                    String[] p =player1.get(cardnumber).split(",");
-                    weight = p[6];
-                
-                cardweight.setText("Cateogry : Economic Value " + weight);
-                break;
-            }
-        }  
+
 

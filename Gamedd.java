@@ -22,7 +22,6 @@ public class Game extends JFrame implements ActionListener
     public String supertrump[] ={"Supertrump card,Petrologist,Crustal", "Supertrump card,Gemmologist,Hardness",
             "Supertrump card,Miner,EcoValue" ,"Supertrump card,Mineralogist,Cleavage",
             "Supertrump card,Geophysicist,Gravity,Magnetite","Supertrump card,Geologist,any"};
-    public String cardcategory[] = {"Hardness", "Gravity","Cleavage","Crustal","EcoValue"};
     public JPanel CARDPANEL = new JPanel(new GridLayout(2,8));
     public JButton[][] cards ;
     public JFrame setCategory = new JFrame(" Set Category");
@@ -62,7 +61,6 @@ public class Game extends JFrame implements ActionListener
             "Slide35.jpg" ,"Slide36.jpg" , "Slide37.jpg" ,"Slide38.jpg" ,"Slide39.jpg" ,"Slide40.jpg" ,"Slide41.jpg" ,"Slide42.jpg" ,"Slide43.jpg" ,
             "Slide44.jpg" ,"Slide45.jpg" ,"Slide46.jpg" , "Slide47.jpg" ,"Slide48.jpg" ,"Slide49.jpg" ,"Slide50.jpg" ,"Slide51.jpg" ,
             "Slide52.jpg" ,"Slide53.jpg" ,"Slide54.jpg"   };
-    public String[] supertrumpImage= {"Slide55.jpg","Slide56.jpg","Slide57.jpg","Slide58.jpg","Slide59.jpg","Slide60.jpg"};
 
     public JPanel Screen2 = new JPanel(new GridLayout(2,7,5,5));
 
@@ -84,17 +82,10 @@ public class Game extends JFrame implements ActionListener
             {
 
                 deck.add (i + "," +s.toString());
-                
+
                 i++;
 
             }
-            i=0;
-            
-            //while(i<supertrump.length)
-            //{
-            //deck.add(supertrump[i]);
-            //deckImage.add(supertrumpImage[i]);
-            // }
             Random rand = new Random();
             i=0;
             System.out.println(deck);
@@ -109,6 +100,7 @@ public class Game extends JFrame implements ActionListener
             Collections.shuffle(deck.subList(0, deck.size()-1));
             System.out.println(" Deck size " +deck.size());
 
+           
             // cards assigned to each players
             int num1=0;
 
@@ -141,6 +133,7 @@ public class Game extends JFrame implements ActionListener
                 deck.remove(i);
                 i++;
 
+                               
             }
             i=0;
             //player 3
@@ -185,6 +178,8 @@ public class Game extends JFrame implements ActionListener
                 }
             }
 
+                    
+               
         }  
         catch(IOException exc)
         {
@@ -197,7 +192,7 @@ public class Game extends JFrame implements ActionListener
     {
 
         // JLabel temp = new JLabel("" + totalPlayers);
-
+        
         System.out.println(nameP);
         System.out.println(player2Image);
         System.out.println("Test" + totalPlayers);
@@ -210,7 +205,7 @@ public class Game extends JFrame implements ActionListener
         Game.add(playerNumber);
         Game.add(cardweight);  
         //Game.add(Next);
-       // Game.add(pass);
+        Game.add(pass);
         CARDPANEL.setSize(1500,1500);
         // Game.add(temp);
 
@@ -221,6 +216,7 @@ public class Game extends JFrame implements ActionListener
         //r=1 ;
         System.out.println("Round " + r);
 
+       
         roundNumber.setText("Round " + r );
         CARDPANEL.add(Next);
         pass.addActionListener(this);
@@ -240,9 +236,9 @@ public class Game extends JFrame implements ActionListener
                 cards[0][i] = new JButton(image[0][i]);
                 cards[0][i].setActionCommand("0,"+ i);
                 cards[0][i].addActionListener(this);
-                //image[0][i] = new ImageIcon(player1Image.get(i));
-                Next.addActionListener(this);
 
+                Next.addActionListener(this);
+                
                 CARDPANEL.add(cards[0][i]);
                 setSize(1500,1500);
 
@@ -267,7 +263,7 @@ public class Game extends JFrame implements ActionListener
                 System.out.println(cards[0][i]);
                 CARDPANEL.add(cards[0][i]);
                 setSize(1500,1500);
-                Next.addActionListener(this);
+                 Next.addActionListener(this);
             }
             Game.add(CARDPANEL);
         }
@@ -286,7 +282,7 @@ public class Game extends JFrame implements ActionListener
                 cards[0][i].addActionListener(this);
                 System.out.println(cards[0][i]);
                 CARDPANEL.add(cards[0][i]);
-                Next.addActionListener(this);
+                 Next.addActionListener(this);
                 setSize(1500,1500);
             }
             Game.add(CARDPANEL);
@@ -306,8 +302,8 @@ public class Game extends JFrame implements ActionListener
                 cards[0][i].addActionListener(this);
                 System.out.println(cards[0][i]);
                 CARDPANEL.add(cards[0][i]);
-
-                Next.addActionListener(this);
+                ;
+                 Next.addActionListener(this);
                 setSize(1500,1500);
             }
             Game.add(CARDPANEL);
@@ -327,7 +323,7 @@ public class Game extends JFrame implements ActionListener
                 cards[0][i].addActionListener(this);
                 System.out.println(cards[0][i]);
                 CARDPANEL.add(cards[0][i]);
-                Next.addActionListener(this);
+                 Next.addActionListener(this);
                 setSize(1500,1500);
             }
             Game.add(CARDPANEL);
@@ -342,6 +338,7 @@ public class Game extends JFrame implements ActionListener
         invalidate();
         //break;
 
+  
     }
 
     @Override
@@ -353,89 +350,30 @@ public class Game extends JFrame implements ActionListener
         System.out.println("input " +input );
         System.out.println("deck1 " +(input.equals("100")== true)); 
         if(r == 1 && input.substring(0,input.indexOf(",")).equals("0")==true)
-        {
-            temp = Integer.valueOf(input.substring(2));
-
-            settingRound(temp, 1);
-            deck.add(player1.get(temp));
-            player1.remove(temp);
-            player1Image.remove(temp);
-            nameP= 2;
-
-        }
+            {
+                 temp = Integer.valueOf(input.substring(2));
+               
+                 settingRound(temp, 1);
+                 deck.add(player1.get(temp));
+                    player1.remove(temp);
+                    player1Image.remove(temp);
+                nameP= nameP+1;
+            
+            }
         if(input.equals(Next.getText())==true)
         {
             System.out.println("true");
-            int playerno = nameP;
-            if(playerno == 1)
-            {
-
-                System.out.println("Entered player 1");
-                 String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                int num1= Integer.parseInt(s);
-                player1Image.add(ImageCard[num1]);
-               // String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                //int num1= Integer.parseInt(s);
-                player1Image.add(ImageCard[0]);
-                player1.add(deck.get(0));
-                deck.remove(0);
-
-                //System.out.println(deck.size());
-            }
-            else if(playerno == 2)
-            {
-                System.out.println("Adding card");
-                String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                int num1= Integer.parseInt(s);
-                player2Image.add(ImageCard[num1]);
-                player2.add(deck.get(0));
-                deck.remove(0);
-                System.out.println("Adding card success");
-            }
-            else if(playerno == 3)
-            {
-                String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                int num1= Integer.parseInt(s);
-                player3Image.add(ImageCard[num1]);
-                player3.add(deck.get(0));
-                deck.remove(0);
-
-            }
-            else if(playerno == 4)
-            {
-                String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                int num1= Integer.parseInt(s);
-                player4Image.add(ImageCard[num1]);
-                player4.add(deck.get(0));
-                deck.remove(0);
-            }
-            else if(playerno == 5)
-            {
-                String s = deck.get(0).substring(0,deck.get(0).indexOf(","));
-                int num1= Integer.parseInt(s);
-                player5Image.add(ImageCard[num1]);
-                player5.add(deck.get(0));
-                deck.remove(0);
-            }
-            CARDPANEL.removeAll();
-            nameP=nameP+1;
-            //round(nameP);
         }
-
-         if( input.substring(0,input.indexOf(",")).equals("0")==true)
+     
+         else if( input.substring(0,input.indexOf(",")).equals("0")==true)
         {
             //player 1
-
             int temp = Integer.valueOf(input.substring(2));
-            String[] p= player1.get(temp).split(",");
 
             //cards[0][temp].setEnabled(false);
             //System.out.println(deck.size());
-            if(p[2].equals("Supertrump card")== true)
-            {
-                supertrump(p[3]);
-            }
-
+            
+           
             if(category == 2 || category== 3)
             {
                 int y1 = IntHigerValue(1, temp);
@@ -457,7 +395,7 @@ public class Game extends JFrame implements ActionListener
 
                     else
                     {
-                        nameP= 2;
+                        nameP= nameP+1;
                     }
                     //nameP= nameP+1;
                     deck.add(player1.get(temp));
@@ -467,7 +405,6 @@ public class Game extends JFrame implements ActionListener
                     CARDPANEL.removeAll();
                     round(nameP);
                 }
-
                 //round(nameP);
 
             }
@@ -492,7 +429,7 @@ public class Game extends JFrame implements ActionListener
 
                     else
                     {
-                        nameP= 2;
+                        nameP= nameP+1;
                     }
                     //nameP= nameP+1;
                     deck.add(player1.get(temp));
@@ -503,7 +440,12 @@ public class Game extends JFrame implements ActionListener
                     round(nameP);
                 }
             }
+            /*if(r > 1)
+            {
+            round(nameP);
 
+            }*/
+            // break;
         }
         else if( input.substring(0,input.indexOf(",")).equals("1")==true)
         {
@@ -532,7 +474,7 @@ public class Game extends JFrame implements ActionListener
                     }
                     else
                     {
-                        nameP= 3;
+                        nameP= nameP+1;
                     }
                     //nameP= nameP+1;
                     deck.add(player2.get(temp));
@@ -565,7 +507,7 @@ public class Game extends JFrame implements ActionListener
 
                     else
                     {
-                        nameP= 3;
+                        nameP= nameP+1;
                     }
                     //nameP= nameP+1;
                     deck.add(player2.get(temp));
@@ -611,7 +553,6 @@ public class Game extends JFrame implements ActionListener
                     player3.remove(temp);
                     player3Image.remove(temp);
                     CARDPANEL.removeAll();
-                    nameP=nameP+1;
                     round(nameP);
                 }
                 //round(nameP);
@@ -796,35 +737,35 @@ public class Game extends JFrame implements ActionListener
             }
             //break;
         }
+       
 
         else
         {
             info.setText("Please try again");
 
             //break;
-
-            if(input.equals("100")== true)
-            {
-
-                System.out.println("Entered");
-                //getpass(nameP);
-                // nameP= nameP+1;   
-                //CARDPANEL.removeAll(); 
-                totalskip ++;
-                System.out.println("Retirned get pass");   
-                // round(totalPlayers);
-                //round(nameP);
-                //round(temp+1);
-
-                //break;
-            }
         }
+        if(input.equals("100")== true)
+        {
+
+            System.out.println("Entered");
+            //getpass(nameP);
+            // nameP= nameP+1;   
+            //CARDPANEL.removeAll(); 
+           totalskip ++;
+            System.out.println("Retirned get pass");   
+            // round(totalPlayers);
+            //round(nameP);
+            //round(temp+1);
+
+            //break;
+        }
+
         // System.out.println(input.substring(0,input.indexOf(",")).equals("0"));
     }
 
     public void settingRound(int cardnumber ,int no)
     {
-        categoryweight = 0;
         setCategory.setLayout(new FlowLayout());
         setCategory.setSize(400, 250);
         setCategory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -843,9 +784,9 @@ public class Game extends JFrame implements ActionListener
                 if(no ==1)
                 {
                     String[] p =player1.get(cardnumber).split(",");
-                    System.out.println("Clear 1 " + p[1]);
+                    System.out.println("Clear 1");
                     categoryweight = Double.valueOf( p[2]);
-
+                    
                 }
                 else if(no == 2)
                 {
@@ -1035,13 +976,11 @@ public class Game extends JFrame implements ActionListener
     {
         double compareVal = 0;
         int c = 0;
-        System.out.println("enteree" + compareVal );
+        System.out.println("enteree" + category );
         if(playerno == 1)
         {
             String[] p =player1.get(cardnumber).split(",");
-
             compareVal =  Double.valueOf(p[category]);
-            System.out.println("Player 1"+compareVal);
         }
         else if (playerno == 2)
         {
@@ -1091,51 +1030,6 @@ public class Game extends JFrame implements ActionListener
             cardweight.setText("Cateogry :  Hardness " + categoryweight);
         }
         return c;
-    }
-
-    public void supertrump(String name)
-    {
-        int j=0;
-        //int r = 5;
-        //checking the card 
-        while(cardcategory[j].compareTo(name)!=0 && j<cardcategory.length)
-        {
-            j++;
-        }
-        if(j==3)
-        {
-            category = 5;
-            System.out.println(" Category set to Crustal Abundance");
-        }
-        else if(j==0)
-        {
-
-            System.out.println(" Category set to Hardness ");
-            category = 2;
-        }
-        else if(j==4)
-        {
-            category = 6;
-            System.out.println(" Category set to Economic Value");
-        }
-        else if(j==2)
-        {
-            category =  4;
-            System.out.println(" Category set to Cleavage");
-        }
-        else if(j==1)
-        {
-            category = 3;
-            System.out.println("Category set to specific gravity");
-
-        }
-        else 
-        {
-            r=1;
-        }
-        category = j+1;
-        round(nameP);
-        //return r;   
     }
 
     public int StringHigherValue(int playerno , int cardnumber)
@@ -1251,7 +1145,6 @@ public class Game extends JFrame implements ActionListener
         }
         else
         {
-
         }
         return c;
 
@@ -1308,7 +1201,6 @@ public class Game extends JFrame implements ActionListener
             player5.add(deck.get(0));
             deck.remove(0);
         }
-
         //round(nameP);
     }
 
@@ -1316,6 +1208,7 @@ public class Game extends JFrame implements ActionListener
     {
         count ++;
 
+                    
         if(player1.size()-1<0 )
         {
             System.out.println("Player 1 wins");
@@ -1389,7 +1282,10 @@ public class Game extends JFrame implements ActionListener
 
         //player 2
 
+                        
+                     
         //player 3
+
         // player 3
         else if(playerno ==3)
 
@@ -1462,7 +1358,6 @@ public class Game extends JFrame implements ActionListener
         }
 
     }
-
     public Game(int total)
     {
         totalPlayers = total;
