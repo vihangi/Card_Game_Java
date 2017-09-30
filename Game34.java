@@ -10,23 +10,25 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Gameww extends JFrame implements ActionListener
+public class Game34 extends JFrame implements ActionListener
 {
     //public GetPlayers get = new GetPlayers(); 
     public int count  =0;
     public JLabel cardweight = new JLabel("card weight");
+    
     public JPanel CARDPANEL = new JPanel(new GridLayout(2,8));
     public JButton[][] cards ;
-   
+    public JFrame setCategory = new JFrame(" Set Category");
     public int r = 1;
     public ImageIcon[][] image;
     public JLabel roundNumber = new JLabel("Round Number");
     public JLabel playerNumber = new JLabel("Player number : ");
-  
+    public String category = "";
     public JLabel info = new JLabel("");
     public JButton deck1 = new JButton(" Pass ");
-  
-    public int totalPlayers = 0;
+    public double categoryweight=0;
+    public int totalPlayers  = 0;
+    public String weight = "";
     public int totalskip , skip = 0;
     public int temp, nameP = 1;
    
@@ -380,12 +382,17 @@ public class Gameww extends JFrame implements ActionListener
         else if( input.substring(0,input.indexOf(",")).equals("0")==true)
         {
             //player 1
-            
-            int temp = Integer.valueOf(input.substring(2));
+             int temp = Integer.valueOf(input.substring(2));
+            if(r == 1)
+            {
+                settingRound(temp, 1);
+            }
+           
             
             deck.add(player1.get(temp));
             player1.remove(temp);
             player1Image.remove(temp);
+            
             CARDPANEL.removeAll();
             //cards[0][temp].setEnabled(false);
             //System.out.println(deck.size());
@@ -406,6 +413,7 @@ public class Gameww extends JFrame implements ActionListener
         else if( input.substring(0,input.indexOf(",")).equals("1")==true)
         {
             //player 2
+            
             int temp = Integer.valueOf(input.substring(2));
             //cards[1][temp].setEnabled(false);
              deck.add(player2.get(temp));
@@ -425,6 +433,7 @@ public class Gameww extends JFrame implements ActionListener
            }
             
             round(nameP);
+            
             //break;
        }
         else if( input.substring(0,input.indexOf(",")).equals("2")==true)
@@ -509,6 +518,206 @@ public class Gameww extends JFrame implements ActionListener
         
      
        // System.out.println(input.substring(0,input.indexOf(",")).equals("0"));
+    }
+    public void settingRound(int cardnumber ,int no)
+    {
+        setCategory.setLayout(new FlowLayout());
+        setCategory.setSize(400, 250);
+        setCategory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        String[] options = {"Hardness" , "Specific Gravity", "Cleavage" , "Crustal Abundance" , "Economic Value" };
+        
+        int response = JOptionPane.showOptionDialog(setCategory, "Choose Category " ,"enter category" ,JOptionPane.DEFAULT_OPTION , 
+        JOptionPane.QUESTION_MESSAGE, null , options , "Hardness");
+        switch(response)
+        {
+            case 0 :
+            {
+                 cardweight.setText("Cateogry : Hardness ");
+                if(no ==1)
+                {
+                    String[] p =player1.get(cardnumber).split(",");
+                    categoryweight = Integer.valueOf( p[2]);
+                    
+                }
+                else if(no == 2)
+                {
+                    String[] p =player2.get(cardnumber).split(",");
+                    categoryweight = Integer.valueOf( p[2]);
+                }
+                else if(no == 3)
+                {
+                    String[] p =player3.get(cardnumber).split(",");
+                    categoryweight = Integer.valueOf( p[2]);
+                }
+                else if(no == 4)
+                {
+                    String[] p =player4.get(cardnumber).split(",");
+                    categoryweight = Integer.valueOf( p[2]);
+                }
+                else if(no == 5)
+                {
+                    String[] p =player5.get(cardnumber).split(",");
+                    categoryweight = Integer.valueOf( p[2]);
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                cardweight.setText("Cateogry : Hardness " + categoryweight);
+                break;
+            }
+            case 1 :
+            {
+                cardweight.setText("Cateogry : Specific Gravity ");
+                if(no ==1)
+                {
+                    String[] p =player1.get(cardnumber).split(",");
+                    System.out.println("SC " + p[3]);
+                    categoryweight = Double.valueOf( p[3]);
+                }
+                else if(no == 2)
+                {
+                    String[] p =player2.get(cardnumber).split(",");
+                    categoryweight = Double.valueOf( p[3]);
+                }
+                else if(no == 3)
+                {
+                    String[] p =player3.get(cardnumber).split(",");
+                    categoryweight = Double.valueOf( p[3]);
+                }
+                else if(no == 4)
+                {
+                    String[] p =player4.get(cardnumber).split(",");
+                    categoryweight = Double.valueOf( p[3]);
+                }
+                else if(no == 5)
+                {
+                    String[] p =player5.get(cardnumber).split(",");
+                    categoryweight = Double.valueOf( p[3]);
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                
+                cardweight.setText("Cateogry : Specific Gravity " + categoryweight);
+                break; 
+            }
+            case 2 :
+            {
+                cardweight.setText("Cateogry : Cleavage ");
+                if(no ==1)
+                {
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[4];
+                }
+                else if(no == 2)
+                {
+                    String[] p =player2.get(cardnumber).split(",");
+                    weight = p[4];
+                }
+                else if(no == 3)
+                {
+                    String[] p =player3.get(cardnumber).split(",");
+                    weight = p[4];
+                }
+                else if(no == 4)
+                {
+                    String[] p =player4.get(cardnumber).split(",");
+                    weight = p[4];
+                }
+                else if(no == 5)
+                {
+                    String[] p =player5.get(cardnumber).split(",");
+                    weight = p[4];
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                cardweight.setText("Cateogry : Cleavage " + weight);
+                break;
+            }
+            case 3 :
+            {
+                cardweight.setText("Cateogry : Crustal Abundance ");
+                 if(no ==1)
+                {
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[5];
+                }
+                else if(no == 2)
+                {
+                    String[] p =player2.get(cardnumber).split(",");
+                    weight = p[5];
+                }
+                else if(no == 3)
+                {
+                    String[] p =player3.get(cardnumber).split(",");
+                    weight = p[5];
+                }
+                else if(no == 4)
+                {
+                    String[] p =player4.get(cardnumber).split(",");
+                    weight = p[5];
+                }
+                else if(no == 5)
+                {
+                    String[] p =player5.get(cardnumber).split(",");
+                    weight = p[5];
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                cardweight.setText("Cateogry : Crustal Abundance " + weight);
+                break;
+            }
+            case 4 :
+            {
+                cardweight.setText("Cateogry : Economic Value ");
+                 if(no ==1)
+                {
+                    String[] p =player1.get(cardnumber).split(",");
+                    weight = p[6];
+                }
+                else if(no == 2)
+                {
+                    String[] p =player2.get(cardnumber).split(",");
+                    weight = p[6];
+                }
+                else if(no == 3)
+                {
+                    String[] p =player3.get(cardnumber).split(",");
+                    weight = p[6];
+                }
+                else if(no == 4)
+                {
+                    String[] p =player4.get(cardnumber).split(",");
+                    weight = p[6];
+                }
+                else if(no == 5)
+                {
+                    String[] p =player5.get(cardnumber).split(",");
+                    weight = p[6];
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                cardweight.setText("Cateogry : Economic Value " + weight);
+                break;
+            }
+        }  
+        nameP = nameP + 1;
+        round(nameP);
+        Game.add(setCategory);
+    }
+    public void HigerValue(int playerno)
+    {
+        
+        
     }
     public void getpass(int playerno)
     {
